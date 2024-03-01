@@ -148,14 +148,14 @@ namespace WebApplication1.Controllers
             try
             {
                 conn.Open();
-                string query = @"SELECT Cognome, Nome AS COGNOME, COUNT(Anagrafica.ID_Anagrafica) AS TOTALE FROM ANAGRAFICA JOIN  VERBALE  ON Anagrafica.ID_Anagrafica = Verbale.ID_Anagrafica GROUP BY COGNOME, NOME";
+                string query = @"SELECT Cognome, Nome AS COGNOME, COUNT(Anagrafica.ID_Anagrafica) AS TOTALEVERBALI FROM ANAGRAFICA JOIN  VERBALE  ON Anagrafica.ID_Anagrafica = Verbale.ID_Anagrafica GROUP BY COGNOME, NOME";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     Trasgressori trasgressore = new Trasgressori();
                     trasgressore.Cognome = reader["Cognome"].ToString();
-                    trasgressore.Trasgressore = reader["Trasgressore"].ToString();
+                    
                     trasgressore.TotaleVerbali = Convert.ToInt32(reader["TotaleVerbali"]);
                     listaTrasgressori.Add(trasgressore);
                 }
